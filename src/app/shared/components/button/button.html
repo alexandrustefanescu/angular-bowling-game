@@ -1,0 +1,8 @@
+<button
+  [type]="type()"
+  [disabled]="disabled()"
+  (click)="onClick($event)"
+  class="px-6 py-3 bg-blue-600 text-white font-bold text-lg rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors shadow-md hover:shadow-lg"
+>
+  <ng-content />
+</button>
