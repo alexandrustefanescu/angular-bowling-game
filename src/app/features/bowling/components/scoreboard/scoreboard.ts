@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { BowlingService } from '../../services/bowling-game';
+import { BowlingGameService } from '../../services/bowling-game';
 import { ScoreboardFrame } from '../scoreboard-frame/scoreboard-frame';
 
 @Component({
@@ -9,6 +9,6 @@ import { ScoreboardFrame } from '../scoreboard-frame/scoreboard-frame';
   standalone: true,
 })
 export class Scoreboard {
-  private readonly bowlingService = inject(BowlingService);
+  private readonly bowlingService = inject(BowlingGameService);
   protected game = this.bowlingService.game;
 }

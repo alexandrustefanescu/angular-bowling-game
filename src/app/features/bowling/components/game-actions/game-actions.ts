@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { BowlingService } from '../../services/bowling-game';
+import { BowlingGameService } from '../../services/bowling-game';
 import { Button } from '../../../../shared/components/button/button';
 
 @Component({
@@ -9,7 +9,7 @@ import { Button } from '../../../../shared/components/button/button';
   imports: [Button],
 })
 export class GameActions {
-  private readonly bowlingService = inject(BowlingService);
+  private readonly bowlingService = inject(BowlingGameService);
 
   protected game = this.bowlingService.game;
   protected startNewGame() {

@@ -1,40 +1,51 @@
 <div
+  data-test="frame-container"
   class="bg-white rounded border-2 transition-all"
   [class.border-green-500]="isCurrentFrame()"
   [class.shadow-lg]="isCurrentFrame()"
   [class.border-gray-300]="!isCurrentFrame()"
 >
   <div
+    data-test="frame-header"
     class="bg-gray-100 text-center text-xs font-semibold py-1 border-b border-gray-300"
   >
     {{ index() + 1 }}
   </div>
 
   <div
+    data-test="rolls-grid"
     class="grid h-12 border-b border-gray-300"
     [class.grid-cols-2]="!isLastFrame()"
     [class.grid-cols-3]="isLastFrame()"
   >
     <div
+      data-test="first-roll"
       class="flex items-center justify-center text-lg font-bold border-r border-gray-300"
     >
-      {{ firstRollDisplay() }}
+      {{ frame().firstRoll | bowlingRoll: firstRollBonus() }}
     </div>
     <div
+      data-test="second-roll"
       class="flex items-center justify-center text-lg font-bold"
       [class.border-r]="isLastFrame()"
       [class.border-gray-300]="isLastFrame()"
     >
-      {{ secondRollDisplay() }}
+      {{ frame().secondRoll | bowlingRoll: secondRollBonus() }}
     </div>
     @if (isLastFrame()) {
-      <div class="flex items-center justify-center text-lg font-bold">
-        {{ thirdRollDisplay() }}
+      <div
+        data-test="third-roll"
+        class="flex items-center justify-center text-lg font-bold"
+      >
+        {{ frame().thirdRoll | bowlingRoll: thirdRollBonus() }}
       </div>
     }
   </div>
 
-  <div class="bg-blue-50 text-center py-2 text-xl font-bold text-blue-900">
+  <div
+    data-test="frame-score"
+    class="bg-blue-50 text-center py-2 text-xl font-bold text-blue-900"
+  >
     {{ score() }}
   </div>
 </div>

@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Button } from '../../../../shared/components/button/button';
-import { BowlingService } from '../../services/bowling-game';
+import { BowlingGameService } from '../../services/bowling-game';
 
 @Component({
   selector: 'app-pin-roll-input',
@@ -15,7 +15,7 @@ import { BowlingService } from '../../services/bowling-game';
   standalone: true,
 })
 export class PinRollInput {
-  private readonly bowlingService = inject(BowlingService);
+  private readonly bowlingService = inject(BowlingGameService);
 
   protected game = this.bowlingService.game;
   protected errorMessage = signal<string | null>(null);

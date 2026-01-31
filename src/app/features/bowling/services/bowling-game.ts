@@ -13,7 +13,7 @@ import { GamePhase } from '../models/game-phase';
 @Injectable({
   providedIn: 'root',
 })
-export class BowlingService {
+export class BowlingGameService {
   private readonly gameState = signal(createInitialState());
   private readonly phase = signal<GamePhase>('not-started');
 
