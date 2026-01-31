@@ -1,43 +1,40 @@
 <div
   class="bg-white rounded border-2 transition-all"
-  [class.border-green-500]="index() === currentFrameIndex()"
-  [class.shadow-lg]="index() === currentFrameIndex()"
-  [class.border-gray-300]="index() !== currentFrameIndex()"
+  [class.border-green-500]="isCurrentFrame()"
+  [class.shadow-lg]="isCurrentFrame()"
+  [class.border-gray-300]="!isCurrentFrame()"
 >
-  <div class="bg-gray-100 text-center text-xs font-semibold py-1 border-b border-gray-300">
+  <div
+    class="bg-gray-100 text-center text-xs font-semibold py-1 border-b border-gray-300"
+  >
     {{ index() + 1 }}
   </div>
 
   <div
     class="grid h-12 border-b border-gray-300"
-    [class.grid-cols-2]="index() !== 9"
-    [class.grid-cols-3]="index() === 9"
+    [class.grid-cols-2]="!isLastFrame()"
+    [class.grid-cols-3]="isLastFrame()"
   >
-    <div class="flex items-center justify-center text-lg font-bold border-r border-gray-300">
-      {{ formatRoll(firstRoll(), isStrike()) }}
+    <div
+      class="flex items-center justify-center text-lg font-bold border-r border-gray-300"
+    >
+      {{ firstRollDisplay() }}
     </div>
     <div
       class="flex items-center justify-center text-lg font-bold"
-      [class.border-r]="index() === 9"
-      [class.border-gray-300]="index() === 9"
+      [class.border-r]="isLastFrame()"
+      [class.border-gray-300]="isLastFrame()"
     >
-      {{ formatRoll(secondRoll(), isSpare() || (index() === 9 && secondRoll() === 10)) }}
+      {{ secondRollDisplay() }}
     </div>
-    @if (index() === 9) {
+    @if (isLastFrame()) {
       <div class="flex items-center justify-center text-lg font-bold">
-        {{
-          formatRoll(
-            thirdRoll(),
-            (firstRoll() === 10 && secondRoll() === 10) ||
-              isSpare() ||
-              (firstRoll() === 10 && (secondRoll() ?? 0) + (thirdRoll() ?? 0) === 10)
-          )
-        }}
+        {{ thirdRollDisplay() }}
       </div>
     }
   </div>
 
   <div class="bg-blue-50 text-center py-2 text-xl font-bold text-blue-900">
-    {{ cumulativeScores().at(index()) }}
+    {{ score() }}
   </div>
 </div>
