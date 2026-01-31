@@ -6,11 +6,17 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "serve:ssr:angular-bowling": "node dist/angular-bowling/server/server.mjs"
+    "test": "ng test --no-watch",
+    "test-ui": "ng test --ui",
+    "e2e:test": "npx playwright test",
+    "e2e:test-ui": "npx playwright test --headed --workers=1",
+    "e2e:report": "npx playwright show-report",
+    "serve:ssr:angular-bowling": "node dist/angular-bowling/server/server.mjs",
+    "lint": "ng lint",
+    "format": "npx prettier --write 'src/**/*.{ts,html}'"
   },
   "prettier": {
-    "printWidth": 100,
+    "printWidth": 80,
     "singleQuote": true,
     "overrides": [
       {
@@ -40,13 +46,19 @@
     "@angular/build": "^21.0.0",
     "@angular/cli": "^21.0.0",
     "@angular/compiler-cli": "^21.0.0",
+    "@playwright/test": "^1.58.0",
     "@tailwindcss/postcss": "^4.1.12",
     "@types/express": "^5.0.1",
     "@types/node": "^20.17.19",
+    "@vitest/ui": "^4.0.18",
+    "angular-eslint": "21.2.0",
+    "eslint": "^9.39.2",
     "jsdom": "^27.1.0",
+    "playwright-ng-schematics": "^21.0.3",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.1.12",
     "typescript": "~5.9.2",
+    "typescript-eslint": "8.50.1",
     "vitest": "^4.0.8"
   }
 }
