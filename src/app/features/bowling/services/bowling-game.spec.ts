@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { RollIndex } from '../models/roll-index';
-import { BowlingService } from './bowling';
+import { BowlingService } from './bowling-game';
 
 describe('BowlingService', () => {
   let service: BowlingService;
