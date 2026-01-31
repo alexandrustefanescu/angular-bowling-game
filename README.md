@@ -4,6 +4,10 @@
 
 Eine Angular-Anwendung, die ein vollständiges Bowling-Punktesystem implementiert — inklusive Strike-, Spare- und regulärer Wurfberechnung mit korrekter Bonuslogik für alle 10 Frames.
 
+## Diagram
+
+![Diagram](public/diagram.png)
+
 ## Technologie
 
 - **Angular 21**
