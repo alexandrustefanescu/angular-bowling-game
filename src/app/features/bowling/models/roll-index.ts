@@ -1,5 +1,5 @@
 export enum RollIndex {
-    FIRST = 'first',
-    SECOND = 'second',
-    THIRD = 'third',
+  FIRST = 'first',
+  SECOND = 'second',
+  THIRD = 'third',
 }
