@@ -1,43 +1,51 @@
 <div
+  data-test="frame-container"
   class="bg-white rounded border-2 transition-all"
-  [class.border-green-500]="index() === currentFrameIndex()"
-  [class.shadow-lg]="index() === currentFrameIndex()"
-  [class.border-gray-300]="index() !== currentFrameIndex()"
+  [class.border-green-500]="isCurrentFrame()"
+  [class.shadow-lg]="isCurrentFrame()"
+  [class.border-gray-300]="!isCurrentFrame()"
 >
-  <div class="bg-gray-100 text-center text-xs font-semibold py-1 border-b border-gray-300">
+  <div
+    data-test="frame-header"
+    class="bg-gray-100 text-center text-xs font-semibold py-1 border-b border-gray-300"
+  >
     {{ index() + 1 }}
   </div>
 
   <div
+    data-test="rolls-grid"
     class="grid h-12 border-b border-gray-300"
-    [class.grid-cols-2]="index() !== 9"
-    [class.grid-cols-3]="index() === 9"
+    [class.grid-cols-2]="!isLastFrame()"
+    [class.grid-cols-3]="isLastFrame()"
   >
-    <div class="flex items-center justify-center text-lg font-bold border-r border-gray-300">
-      {{ formatRoll(firstRoll(), isStrike()) }}
+    <div
+      data-test="first-roll"
+      class="flex items-center justify-center text-lg font-bold border-r border-gray-300"
+    >
+      {{ frame().firstRoll | bowlingRoll: firstRollBonus() }}
     </div>
     <div
+      data-test="second-roll"
       class="flex items-center justify-center text-lg font-bold"
-      [class.border-r]="index() === 9"
-      [class.border-gray-300]="index() === 9"
+      [class.border-r]="isLastFrame()"
+      [class.border-gray-300]="isLastFrame()"
     >
-      {{ formatRoll(secondRoll(), isSpare() || (index() === 9 && secondRoll() === 10)) }}
+      {{ frame().secondRoll | bowlingRoll: secondRollBonus() }}
     </div>
-    @if (index() === 9) {
-      <div class="flex items-center justify-center text-lg font-bold">
-        {{
-          formatRoll(
-            thirdRoll(),
-            (firstRoll() === 10 && secondRoll() === 10) ||
-              isSpare() ||
-              (firstRoll() === 10 && (secondRoll() ?? 0) + (thirdRoll() ?? 0) === 10)
-          )
-        }}
+    @if (isLastFrame()) {
+      <div
+        data-test="third-roll"
+        class="flex items-center justify-center text-lg font-bold"
+      >
+        {{ frame().thirdRoll | bowlingRoll: thirdRollBonus() }}
       </div>
     }
   </div>
 
-  <div class="bg-blue-50 text-center py-2 text-xl font-bold text-blue-900">
-    {{ cumulativeScores().at(index()) }}
+  <div
+    data-test="frame-score"
+    class="bg-blue-50 text-center py-2 text-xl font-bold text-blue-900"
+  >
+    {{ score() }}
   </div>
 </div>

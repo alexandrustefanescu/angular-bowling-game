@@ -6,21 +6,18 @@
           [index]="$index"
           [currentFrameIndex]="game().currentFrameIndex"
           [cumulativeScores]="game().cumulativeScores"
-          [firstRoll]="game().frames[$index].firstRoll"
-          [secondRoll]="game().frames[$index].secondRoll"
-          [thirdRoll]="game().frames[$index].thirdRoll"
-          [isSpare]="game().frames[$index].isSpare"
-          [isStrike]="game().frames[$index].isStrike"
+          [frame]="frame"
         ></app-scoreboard-frame>
       }
     </div>
 
     @if (game().isGameCompleted) {
-      <div class="bg-green-600 rounded-md p-4 text-white text-center">
-        <p class="text-xl font-bold">
-          Game Completed!
-        </p>
-        <p class="text-3xl font-bold mt-2">
+      <div
+        data-test="game-completed"
+        class="bg-green-600 rounded-md p-4 text-white text-center"
+      >
+        <p class="text-xl font-bold">Game Completed!</p>
+        <p data-test="final-score" class="text-3xl font-bold mt-2">
           Final Score: {{ game().finalScore }}
         </p>
       </div>

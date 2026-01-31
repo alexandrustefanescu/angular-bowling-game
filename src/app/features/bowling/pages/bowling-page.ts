@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { Controls } from '../components/controls/controls';
-import { PinRollField } from '../components/pin-roll-field/pin-roll-field';
+import { GameActions } from '../components/game-actions/game-actions';
+import { PinRollInput } from '../components/pin-roll-input/pin-roll-input';
 import { Scoreboard } from '../components/scoreboard/scoreboard';
 
 @Component({
   selector: 'app-bowling-page',
   templateUrl: './bowling-page.html',
   standalone: true,
-  imports: [Controls, Scoreboard, PinRollField],
+  imports: [GameActions, Scoreboard, PinRollInput],
 })
-export class BowlingPage { 
-}
+export class BowlingPage {}

@@ -1,15 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { BowlingService } from '../../services/bowling';
+import { BowlingGameService } from '../../services/bowling-game';
 import { Button } from '../../../../shared/components/button/button';
 
 @Component({
-  selector: 'app-controls',
-  templateUrl: './controls.html',
+  selector: 'app-game-actions',
+  templateUrl: './game-actions.html',
   standalone: true,
   imports: [Button],
 })
-export class Controls {
-  private readonly bowlingService = inject(BowlingService);
+export class GameActions {
+  private readonly bowlingService = inject(BowlingGameService);
 
   protected game = this.bowlingService.game;
   protected startNewGame() {
