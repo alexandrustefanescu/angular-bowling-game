@@ -28,11 +28,11 @@ export function calculateScores(frames: Frame[]): (number | null)[] {
 }
 
 /**
- * Returns the total score for a single frame (base pins + bonus).
+ * Compute the total score for a frame, including any strike or spare bonuses.
  *
- * @param frames - All 10 frames (needed to look ahead for bonus rolls).
+ * @param frames - All frames, used to look ahead for bonus rolls when necessary.
  * @param index - Zero-based frame index (0–9).
- * @returns The frame score, or `null` if the required rolls haven't been made yet.
+ * @returns The frame's score (base pins plus any bonus) or `null` if the required rolls are not yet available.
  */
 function getFrameScore(frames: Frame[], index: number): number | null {
   const frame = frames[index];
@@ -76,12 +76,11 @@ function getLastFrameScore(frame: Frame): number | null {
 }
 
 /**
- * Returns the two-roll bonus after a strike.
- * Handles consecutive strikes by looking two frames ahead.
+ * Compute the two-roll bonus awarded after a strike, handling consecutive strikes.
  *
- * @param frames - All 10 frames.
- * @param index - Index of the strike frame (must not be the last frame).
- * @returns The bonus pin count, or `null` if the bonus rolls haven't occurred yet.
+ * @param frames - Array of frames for the game; used to read subsequent rolls for bonus calculation.
+ * @param index - Index of the strike frame; must be less than LAST_FRAME_INDEX.
+ * @returns The bonus pin count (sum of the next two rolls) or `null` if the required bonus rolls are not yet available.
  */
 function getStrikeBonus(frames: Frame[], index: number): number | null {
   const next = frames[index + 1];

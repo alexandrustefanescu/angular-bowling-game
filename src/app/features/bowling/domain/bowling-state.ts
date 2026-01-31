@@ -37,12 +37,13 @@ export function getNextState(
 }
 
 /**
- * Returns how many pins can be knocked down on the current 10th-frame roll.
- * Pin count resets to 10 after a strike or spare.
+ * Compute the maximum pins available for the specified roll in the tenth frame.
  *
- * @param frame - The 10th frame.
- * @param rollIndex - The upcoming roll (SECOND or THIRD).
- * @returns The maximum number of pins the player can knock down.
+ * Accounts for strikes and spares that reset the pin count to 10 when applicable.
+ *
+ * @param frame - The tenth frame after previous rolls
+ * @param rollIndex - The upcoming roll in the tenth frame (SECOND or THIRD)
+ * @returns The maximum number of pins that can be knocked down on the specified roll
  */
 export function getLastFrameAvailablePins(
   frame: Frame,
