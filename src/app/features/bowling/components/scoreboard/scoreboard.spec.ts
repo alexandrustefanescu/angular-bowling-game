@@ -239,7 +239,7 @@ describe('Scoreboard', () => {
         'app-scoreboard-frame .text-lg.font-bold',
       );
       rollDisplays.forEach((roll: HTMLElement) => {
-        expect(roll.textContent?.trim()).toBe('-');
+        expect(roll.textContent?.trim()).toBe('');
       });
     });
   });

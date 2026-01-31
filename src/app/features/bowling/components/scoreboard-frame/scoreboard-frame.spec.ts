@@ -65,11 +65,11 @@ describe('ScoreboardFrame', () => {
   });
 
   describe('formatRoll logic via computed signals', () => {
-    it('should return "-" for null value', () => {
+    it('should return "" for null value', () => {
       setInputs({ frame: { firstRoll: null } });
       const rolls =
         fixture.nativeElement.querySelectorAll('.text-lg.font-bold');
-      expect(rolls[0].textContent.trim()).toBe('-');
+      expect(rolls[0].textContent.trim()).toBe('');
     });
 
     it('should return "X" for strike (value=10, isStrike=true)', () => {
@@ -173,11 +173,11 @@ describe('ScoreboardFrame', () => {
       expect(rolls[0].textContent.trim()).toBe('-');
     });
 
-    it('should format null as "-"', () => {
+    it('should format null as ""', () => {
       setInputs({ frame: { firstRoll: null } });
       const rolls =
         fixture.nativeElement.querySelectorAll('.text-lg.font-bold');
-      expect(rolls[0].textContent.trim()).toBe('-');
+      expect(rolls[0].textContent.trim()).toBe('');
     });
 
     it('should display third roll only for frame 10', () => {
@@ -282,7 +282,7 @@ describe('ScoreboardFrame', () => {
       const rolls =
         fixture.nativeElement.querySelectorAll('.text-lg.font-bold');
       expect(rolls[0].textContent.trim()).toBe('X');
-      expect(rolls[1].textContent.trim()).toBe('-');
+      expect(rolls[1].textContent.trim()).toBe('');
     });
 
     it('should handle spare correctly', () => {
@@ -389,7 +389,7 @@ describe('ScoreboardFrame', () => {
       const rolls =
         fixture.nativeElement.querySelectorAll('.text-lg.font-bold');
       expect(rolls[0].textContent.trim()).toBe('7');
-      expect(rolls[1].textContent.trim()).toBe('-');
+      expect(rolls[1].textContent.trim()).toBe('');
 
       const container = fixture.nativeElement.querySelector('.bg-white');
       expect(container.classList.contains('border-green-500')).toBe(true);
