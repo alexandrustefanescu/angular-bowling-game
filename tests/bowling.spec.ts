@@ -12,11 +12,17 @@ async function rollMany(page: Page, times: number, pins: number) {
 }
 
 function getFrameRolls(page: Page, frameIndex: number) {
-  return page.locator('app-scoreboard-frame').nth(frameIndex).locator('.text-lg.font-bold');
+  const frame = page.locator('app-scoreboard-frame').nth(frameIndex);
+  return {
+    nth: (i: number) => {
+      const testids = ['first-roll', 'second-roll', 'third-roll'];
+      return frame.locator(`[data-test="${testids[i]}"]`);
+    },
+  };
 }
 
 function getFrameScore(page: Page, frameIndex: number) {
-  return page.locator('app-scoreboard-frame').nth(frameIndex).locator('.bg-blue-50');
+  return page.locator('app-scoreboard-frame').nth(frameIndex).locator('[data-test="frame-score"]');
 }
 
 async function assertFrame(page: Page, frameIndex: number, expectedRolls: string[], expectedScore: string) {
@@ -145,7 +151,7 @@ test.describe('Full Game E2E Tests', () => {
   });
 
   test('Error recovery — invalid rolls show errors, game continues correctly, final score 102', async ({ page }) => {
-    const errorMessage = page.locator('.bg-red-50 .text-red-600').last();
+    const errorMessage = page.locator('[data-test="service-error"]');
 
     await roll(page, 5);
     await roll(page, 8);

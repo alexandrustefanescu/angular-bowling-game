@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { signal, WritableSignal } from '@angular/core';
 
 import { Scoreboard } from './scoreboard';
-import { BowlingService } from '../../services/bowling-game';
+import { BowlingGameService } from '../../services/bowling-game';
 import { Game } from '../../models/game';
 import { RollIndex } from '../../models/roll-index';
 import { Frame } from '../../models/frame';
@@ -54,7 +54,7 @@ describe('Scoreboard', () => {
 
     await TestBed.configureTestingModule({
       imports: [Scoreboard],
-      providers: [{ provide: BowlingService, useValue: mockBowlingService }],
+      providers: [{ provide: BowlingGameService, useValue: mockBowlingService }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Scoreboard);
@@ -69,7 +69,7 @@ describe('Scoreboard', () => {
   });
 
   describe('Service Integration', () => {
-    it('should inject BowlingService', () => {
+    it('should inject BowlingGameService', () => {
       expect(component['bowlingService']).toBeDefined();
       expect(component['bowlingService']).toBe(mockBowlingService);
     });
@@ -119,19 +119,16 @@ describe('Scoreboard', () => {
       );
       fixture.detectChanges();
 
-      const rollDisplays = fixture.nativeElement.querySelectorAll(
-        'app-scoreboard-frame .text-lg.font-bold',
+      const frameElements = fixture.nativeElement.querySelectorAll(
+        'app-scoreboard-frame',
       );
       for (let i = 0; i < 10; i++) {
-        const frameRolls = Array.from(rollDisplays).slice(
-          i * 2,
-          i * 2 + 2,
-        ) as HTMLElement[];
-        expect(frameRolls[0].textContent?.trim()).toBe('X');
+        const firstRoll = frameElements[i].querySelector('[data-test="first-roll"]');
+        expect(firstRoll.textContent?.trim()).toBe('X');
       }
 
       const finalScore = fixture.nativeElement.querySelector(
-        '.text-3xl.font-bold',
+        '[data-test="final-score"]',
       );
       expect(finalScore.textContent?.trim()).toContain('300');
     });
@@ -155,11 +152,9 @@ describe('Scoreboard', () => {
       );
       fixture.detectChanges();
 
-      const rollDisplays = fixture.nativeElement.querySelectorAll(
-        'app-scoreboard-frame .text-lg.font-bold',
-      );
-      expect(rollDisplays[0].textContent?.trim()).toBe('5');
-      expect(rollDisplays[1].textContent?.trim()).toBe('/');
+      const firstFrame = fixture.nativeElement.querySelector('app-scoreboard-frame');
+      expect(firstFrame.querySelector('[data-test="first-roll"]').textContent?.trim()).toBe('5');
+      expect(firstFrame.querySelector('[data-test="second-roll"]').textContent?.trim()).toBe('/');
     });
 
     it('should handle game in progress', () => {
@@ -209,15 +204,16 @@ describe('Scoreboard', () => {
       );
       fixture.detectChanges();
 
-      const frameElements = fixture.nativeElement.querySelectorAll(
-        'app-scoreboard-frame .bg-white',
+      const allFrames = fixture.nativeElement.querySelectorAll(
+        'app-scoreboard-frame',
       );
-      expect(frameElements[2].classList.contains('border-green-500')).toBe(
+      const thirdFrameContainer = allFrames[2].querySelector('[data-test="frame-container"]');
+      expect(thirdFrameContainer.classList.contains('border-green-500')).toBe(
         true,
       );
 
       const completionDiv =
-        fixture.nativeElement.querySelector('.bg-green-600');
+        fixture.nativeElement.querySelector('[data-test="game-completed"]');
       expect(completionDiv).toBeFalsy();
     });
 
@@ -235,11 +231,12 @@ describe('Scoreboard', () => {
       );
       expect(frames.length).toBe(10);
 
-      const rollDisplays = fixture.nativeElement.querySelectorAll(
-        'app-scoreboard-frame .text-lg.font-bold',
+      const allFrames = fixture.nativeElement.querySelectorAll(
+        'app-scoreboard-frame',
       );
-      rollDisplays.forEach((roll: HTMLElement) => {
-        expect(roll.textContent?.trim()).toBe('');
+      allFrames.forEach((frame: HTMLElement) => {
+        expect(frame.querySelector('[data-test="first-roll"]')!.textContent?.trim()).toBe('');
+        expect(frame.querySelector('[data-test="second-roll"]')!.textContent?.trim()).toBe('');
       });
     });
   });

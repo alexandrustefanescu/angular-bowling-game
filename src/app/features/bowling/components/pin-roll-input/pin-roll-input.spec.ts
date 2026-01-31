@@ -4,7 +4,7 @@ import { vi } from 'vitest';
 
 import { Game } from '../../models/game';
 import { RollIndex } from '../../models/roll-index';
-import { BowlingService } from '../../services/bowling-game';
+import { BowlingGameService } from '../../services/bowling-game';
 import { PinRollInput } from './pin-roll-input';
 
 interface MockBowlingService {
@@ -48,7 +48,7 @@ describe('PinRollInput', () => {
 
     await TestBed.configureTestingModule({
       imports: [PinRollInput],
-      providers: [{ provide: BowlingService, useValue: mockBowlingService }],
+      providers: [{ provide: BowlingGameService, useValue: mockBowlingService }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PinRollInput);
@@ -65,7 +65,7 @@ describe('PinRollInput', () => {
       expect(component).toBeTruthy();
     });
 
-    it('should inject BowlingService', () => {
+    it('should inject BowlingGameService', () => {
       expect(component['bowlingService']).toBe(mockBowlingService);
     });
 
@@ -162,7 +162,7 @@ describe('PinRollInput', () => {
       pinControl().markAsTouched();
       fixture.detectChanges();
 
-      const error = fixture.nativeElement.querySelector('.bg-red-50');
+      const error = fixture.nativeElement.querySelector('[data-test="validation-error"]');
       expect(error).toBeTruthy();
     });
 
@@ -174,7 +174,7 @@ describe('PinRollInput', () => {
       pinControl().setValue(5);
       fixture.detectChanges();
 
-      const error = fixture.nativeElement.querySelector('.bg-red-50');
+      const error = fixture.nativeElement.querySelector('[data-test="validation-error"]');
       expect(error).toBeFalsy();
     });
 

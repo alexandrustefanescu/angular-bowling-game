@@ -1,5 +1,5 @@
 @if (game().isGameCompleted) {
-  <div class="flex gap-3 justify-center mt-4">
+  <div data-test="game-actions" class="flex gap-3 justify-center mt-4">
     <app-button (clicked)="startNewGame()">New Game</app-button>
   </div>
 }

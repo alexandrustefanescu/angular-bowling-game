@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { signal, WritableSignal } from '@angular/core';
 
 import { GameActions } from './game-actions';
-import { BowlingService } from '../../services/bowling-game';
+import { BowlingGameService } from '../../services/bowling-game';
 import { Game } from '../../models/game';
 import { RollIndex } from '../../models/roll-index';
 
@@ -51,7 +51,7 @@ describe('GameActions', () => {
 
     await TestBed.configureTestingModule({
       imports: [GameActions],
-      providers: [{ provide: BowlingService, useValue: mockBowlingService }],
+      providers: [{ provide: BowlingGameService, useValue: mockBowlingService }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(GameActions);
@@ -64,7 +64,7 @@ describe('GameActions', () => {
       expect(component).toBeTruthy();
     });
 
-    it('should inject BowlingService', () => {
+    it('should inject BowlingGameService', () => {
       expect(component['bowlingService']).toBeDefined();
       expect(component['bowlingService']).toBe(mockBowlingService);
     });
@@ -102,7 +102,7 @@ describe('GameActions', () => {
     });
 
     it('should not render controls container when game is not completed', () => {
-      const controlsDiv = fixture.nativeElement.querySelector('.flex.gap-3');
+      const controlsDiv = fixture.nativeElement.querySelector('[data-test="game-actions"]');
       expect(controlsDiv).toBeFalsy();
     });
 
@@ -125,7 +125,7 @@ describe('GameActions', () => {
     });
 
     it('should render controls container when game is completed', () => {
-      const controlsDiv = fixture.nativeElement.querySelector('.flex.gap-3');
+      const controlsDiv = fixture.nativeElement.querySelector('[data-test="game-actions"]');
       expect(controlsDiv).toBeTruthy();
     });
 
@@ -140,7 +140,7 @@ describe('GameActions', () => {
     });
 
     it('should apply correct CSS classes to controls container', () => {
-      const controlsDiv = fixture.nativeElement.querySelector('.flex');
+      const controlsDiv = fixture.nativeElement.querySelector('[data-test="game-actions"]');
       expect(controlsDiv.className).toContain('flex');
       expect(controlsDiv.className).toContain('gap-3');
       expect(controlsDiv.className).toContain('justify-center');
