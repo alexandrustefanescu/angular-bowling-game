@@ -30,8 +30,9 @@ export class PinRollInput {
   constructor() {
     effect(() => {
       const game = this.bowlingService.game();
-      if (game.currentFrameIndex === null) {
+      if (game.currentFrameIndex === 0 && game.frames[0].firstRoll === null) {
         this.pinFormGroup.reset();
+        this.errorMessage.set(null);
       }
     });
   }
